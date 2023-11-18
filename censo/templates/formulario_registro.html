@@ -1,0 +1,174 @@
+{% extends 'body.html' %}
+{% load widget_tweaks %}
+
+{% block content %}
+<form method="post">
+    <div class="card card-default">
+        <div class="card-header">
+            <h3 class="card-title">
+                <i class="bi bi-person-plus"></i>
+                {{ titulo }}
+            </h3>
+        </div>
+        <div class="card-body">
+            {% csrf_token %}
+            {% if messages %}
+            {% for message in messages %}
+            <div class="alert {{ message.tags }} alert-dismissible fade show"
+                role="alert">
+                {{ message }}
+                <button type="button" class="btn" data-bs-dismiss="alert"
+                    aria-label="Close"></button>
+            </div>
+            {% endfor %}
+            {% endif %}
+            {% if form.errors %}
+            <div class="alert alert-danger alert-dismissible">
+                <button type="button" class="close" data-dismiss="alert"
+                    aria-hidden="true">×</button>
+                <h5><i class="icon fas fa-ban"></i>Ha ocurrido un error al
+                    guardar el habitante</h5>
+                <ul>
+                    {% for field in form %}
+                    {% for error in field.errors %}
+                    <li>
+                        {{error}}
+                    </li>
+                    {% endfor %}
+                    {% endfor %}
+                </ul>
+            </div>
+            {% endif %}
+
+            {% for field in form.visible_fields %}
+
+            <div class="form-group">
+
+                <label for="{{field.label}}"> {{field.label}} </label>
+
+                {{ field|add_class:'form-control'|attr:'autocomplete:off' }}
+
+            </div>
+
+            {% endfor %}
+            {% block campos %}
+
+            {% endblock %}
+        </div>
+
+    </div>
+    <button class="btn btn-primary"><i class="bi bi-floppy btn-sx"></i>
+        {{boton}}</button>
+
+</form>
+
+<script>
+    "{% if form.errors %}"
+        var errors = '';
+       "{% for field in form %}"
+            "{% for error in field.errors %}"
+                errors += '{{ error.lower }}\n';
+            "{% endfor %}"
+        "{% endfor %}"
+        Swal.fire({
+            title: 'Error!',
+            text: errors,
+            icon: 'error'
+        });
+   "{% endif %}"
+</script>
+
+<script>
+    // Oculta los campos por defecto
+    var fieldMujerEmbarazada = 'Mujer embarazada';  // Reemplaza con el ID del campo
+    var labelMujerEmbarazada = document.querySelector('label[for="' + fieldMujerEmbarazada + '"]');
+    var mujerLactancia = 'Mujer lactancia';
+    var labelMujerLactancia = document.querySelector('label[for="' + mujerLactancia + '"]');
+    var fieldTipoDiscacidad = 'Tipo discapacidad';
+    var labelTipoDiscapacidad = document.querySelector('label[for="' + fieldTipoDiscacidad + '"]')
+    var fieldTipoMedicamentos = 'Tipo medicamentos'
+    var labelTipoMedicamentos = document.querySelector('label[for="' + fieldTipoMedicamentos + '"]')
+    var fieldhabitanteEncamada = 'Habitante encamada'
+    var labelhabitanteEncamada = document.querySelector('label[for="'+ fieldhabitanteEncamada +'"]')
+    labelMujerEmbarazada.style.display = 'none';
+    labelMujerLactancia.style.display = 'none';
+    document.getElementById('id_tipoDiscapacidad').style.display = 'none'
+    document.getElementById('id_medicamentos').style.display = 'none'
+    document.getElementById('id_encamada').style.display = 'none'
+    document.getElementById('id_mujer_embarazada').style.display = 'none';
+    document.getElementById('id_mujer_lactancia').style.display = 'none';
+    labelTipoDiscapacidad.style.display = 'none'
+    labelTipoMedicamentos.style.display = 'none'
+    labelhabitanteEncamada.style.display = 'none'
+
+
+ 
+
+
+    // Función para mostrar u ocultar campos según el género seleccionado
+    function mostrarCampos() {
+        var genero = document.getElementById('id_genero').value;
+        var discapacidad = document.getElementById('id_discapacidad').value;
+        var fieldTipoDiscacidad = 'Tipo discapacidad';
+        var labelTipoDiscapacidad = document.querySelector('label[for="' + fieldTipoDiscacidad + '"]')
+        var fieldTipoMedicamentos = 'Tipo medicamentos'
+        var labelTipoMedicamentos = document.querySelector('label[for="' + fieldTipoMedicamentos + '"]')
+        var fieldhabitanteEncamada = 'Habitante encamada'
+        var labelhabitanteEncamada = document.querySelector('label[for="'+ fieldhabitanteEncamada +'"]')
+        var fieldMujerEmbarazada = 'Mujer embarazada';  // Reemplaza con el ID del campo
+        var labelMujerEmbarazada = document.querySelector('label[for="' + fieldMujerEmbarazada + '"]');
+        var mujerLactancia = 'Mujer lactancia';
+        var labelMujerLactancia = document.querySelector('label[for="' + mujerLactancia + '"]');
+        var mujerEmbarazada = document.getElementById('id_mujer_embarazada');
+        var mujerLactancia = document.getElementById('id_mujer_lactancia');
+        var tipoDiscapacidad = document.getElementById('id_tipoDiscapacidad')
+        var tipoMedicamentos = document.getElementById('id_medicamentos')
+        var encamada = document.getElementById('id_encamada')
+    
+
+        if (genero === 'Femenino') {
+            labelMujerEmbarazada.style.display = 'block';
+            labelMujerLactancia.style.display = 'block';
+            mujerLactancia.style.display = 'block';
+            mujerEmbarazada.style.display = 'block';
+
+
+            
+
+        } else {
+            labelMujerEmbarazada.style.display = 'None';
+            labelMujerLactancia.style.display = 'None';
+            mujerEmbarazada.style.display = 'none';
+            mujerLactancia.style.display = 'none';
+
+        }
+
+        if (discapacidad === 'Sí'){
+            labelTipoDiscapacidad.style.display = 'block';
+            labelTipoMedicamentos.style.display = 'block';
+            labelhabitanteEncamada.style.display = 'block';
+            tipoDiscapacidad.style.display = 'block';
+            tipoMedicamentos.style.display = 'block';
+            encamada.style.display = 'block';
+
+        }
+
+        else{
+            labelTipoDiscapacidad.style.display = 'none';
+            labelTipoMedicamentos.style.display = 'none';
+            labelhabitanteEncamada.style.display = 'none';
+            tipoDiscapacidad.style.display = 'none';
+            tipoMedicamentos.style.display = 'none';
+            encamada.style.display = 'none';
+        }
+    }
+
+    // Agrega un evento onchange al campo de género
+    document.getElementById('id_genero').addEventListener('change', mostrarCampos);
+    document.getElementById('id_discapacidad').addEventListener('change', mostrarCampos);
+
+    // Llama a la función inicialmente para establecer la visibilidad correcta
+    mostrarCampos();
+</script>
+
+{% endblock %}
