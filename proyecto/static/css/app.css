@@ -1843,17 +1843,6 @@ a:not(.btn) {
 .screenful-page .description {
   margin-bottom: 50px; }
 
-.screenful-page .screenful-logo {
-  width: 300px;
-  height: 160px;
-  border-radius: 10px;
-  background-size: cover;
-  background-position: center;
-  background-image: url("../assets/screenful/logo.png");
-  background-repeat: no-repeat;
-  display: inline-block;
-  margin-bottom: 20px; }
-
 .screenful-page .integrations-tools {
   width: 100%;
   display: -webkit-box;
