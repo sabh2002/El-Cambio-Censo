@@ -105,7 +105,7 @@ def inicio(request):
         'cantidad_discapacitados': cantidad_discapacitados,
     })
 
-class habitantes(ListView):
+class habitantes(LoginRequiredMixin,ListView):
     model = Habitante
     template_name = 'habitantes/habitantes.html'
     
