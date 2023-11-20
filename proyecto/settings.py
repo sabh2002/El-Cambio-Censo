@@ -137,7 +137,7 @@ STATIC_URL = 'static/'
 if not DEBUG:
     # Tell Django to copy statics to the `staticfiles` directory
     # in your application directory on Render.
-    STATICFILES_DIRS = [os.path.join(BASE_DIR, 'proyecto/static')]
+    #STATICFILES_DIRS = [os.path.join(BASE_DIR, 'proyecto/static')]
     STATIC_ROOT = os.path.join(BASE_DIR, 'proyecto/static')
 
     # Turn on WhiteNoise storage backend that takes care of compressing static files
